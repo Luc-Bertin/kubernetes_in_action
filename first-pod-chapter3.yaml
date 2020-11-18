@@ -1,0 +1,17 @@
+apiVersion: v1 # yaml descriptor conforms to version v1 of Kubernetes API
+kind: Pod # i'm describing a pod
+metadata:
+  name: myapp # the name of the pod
+  labels: # 2 labels are attached to the pod
+    creation_method: manual
+    env: prod
+spec:
+  containers:
+  - name: myapp
+    image: luksa/kubia
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080 # the port the app is listening on
