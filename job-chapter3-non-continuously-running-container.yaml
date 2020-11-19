@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob
+  # i'm not specifying a pod selector, it will be created based on the lables in the pod template
+spec:
+  completions: 5 # must ensure five pods complete succesfully (if one of the pods fail, the Job creates a new pod, so the Job may create more than five pods overall)
+  parallelism: 2 # up to 2 pods in parallel
+  template:
+    metadata:
+      labels:
+        app: task_not_continuous
+    spec:
+      restartPolicy: OnFailure #in a pod specification, you can specify what Kubernetes should do when the processes running in the container finish. This is done through the restartPolicy pod spec property. jobs can't use the default policy, which is Always
+      containers:
+        - name: main
+          image: luksa/batch-job
