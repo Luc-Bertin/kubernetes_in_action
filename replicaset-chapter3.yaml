@@ -1,0 +1,26 @@
+apiVersion: apps/v1  # replicaset aren't part of the v1 API but belong to the apps API roup and version v1beta2
+kind: ReplicaSet
+metadata:
+  name: myreplicaset
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - kubia
+          - other
+    #matchLabels: # you're using the simple matchLabels selector here, which is much like a ReplicationController's selector
+    # app: kubia
+  template:
+    metadata:
+      labels:
+        app: kubia
+    spec:
+      containers:
+        - name: kubia
+          image: luksa/kubia
+          ports:
+            - containerPort: 8080
+
