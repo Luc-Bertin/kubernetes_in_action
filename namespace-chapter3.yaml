@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: custom-namespace
+# To quickly switch to a different namespace, you can set up the following alias
+# alias kcd='kubectl config set-context $(kubectl config current-context) --namespace '
+# you can then switch between namespaces using kcd some-namespace
