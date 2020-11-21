@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple
+spec:
+# using the command kubectl expose rc <replication controller name> creates a service with the same selector as the replication controller rc
+  selector:
+    app: kubia
+  sessionAffinity: ClientIP #if you want all the requests made by a certain client to be redirected to the same pod every time 
+  # default is None (randomly selecting a backing pod) 
+  ports:
+    - name: http
+      port: 80 # the port this service will be available on
+      targetPort: http   # the container port this service will forward to
+    #- name: https
+    #  port: 443
+    #  targetPort: https  # port 443 is mapped to pods'port 8443 (multi-port service)
+      #label selector applies to the service as a whole—it can’t be config- ured for each port individually. If you want different ports to map to different subsets of pods, you need to create two services
+
