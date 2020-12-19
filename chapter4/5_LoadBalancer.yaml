@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myloadbalancer
+spec:
+  selector:
+    app: kubia
+  type: LoadBalancer
+  ports:
+    - port: 80 # port of the loadbalancer, i'm not specifying a specific node port, although i COULD, i'm lettting Kubernetes choose one instead
+      targetPort: 8080

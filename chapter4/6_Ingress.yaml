@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: myingress
+spec:
+  rules:
+    # The Ingress maps the kubia.example.com domain name to your service
+    - host: kubia.example.com
+      http:
+        paths:
+          # all requests will be sent to port 80 of the kubia-nodeport service
+          - path: /
+            backend:
+              serviceName: mynodeport-service
+              # all requests will be sent to the port 80 of the other inner cluster service named mynodeport (check out the NodePort yaml file for more)
+              servicePort: 80
+              # Ingress controllers on cloud providers (GKE, for example) require the Ingress to point to a NodePort service. But that's not a requirement of Kubernetes itself.
